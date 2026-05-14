@@ -85,6 +85,11 @@ export default function CrudClient<T extends { id: string }>({
       const raw = fd.get(f.name);
       if (f.type === 'checkbox') body[f.name] = raw === 'on';
       else if (f.type === 'number') body[f.name] = raw ? Number(raw) : 0;
+      else if ((f.type === 'datetime' || f.type === 'date') && typeof raw === 'string' && raw) {
+        // Browser interprets the bare local-time string in the user's timezone;
+        // .toISOString() converts to UTC so the server stores the right moment.
+        body[f.name] = new Date(raw).toISOString();
+      }
       else body[f.name] = raw ?? '';
     }
     try {
