@@ -22,7 +22,7 @@ export default function Header() {
   if (pathname?.startsWith('/admin')) return null;
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-navy-100">
+    <header className="bg-white/90 backdrop-blur border-b border-navy-100">
       <div className="container-page flex items-center justify-between py-3 gap-4">
         <Link href="/" className="flex items-center gap-3 min-w-0">
           <Logo />

@@ -16,8 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <Providers>
-          <AnnouncementBanner />
-          <Header />
+          <div className="sticky top-0 z-40">
+            <AnnouncementBanner />
+            <Header />
+          </div>
           <main className="min-h-[60vh]">{children}</main>
           <Footer />
         </Providers>
