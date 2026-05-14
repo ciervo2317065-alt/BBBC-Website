@@ -23,11 +23,13 @@ export const CHURCH = {
   name: 'Believers Bible Baptist Church',
   shortName: 'BBBC',
   tagline: 'From the Cross, through the Church, to the World.',
-  email: 'hello@bbbc.example',
-  phone: '+000 000 0000',
-  address: 'Church Address, City',
-  // To change the map location, edit the `q=` value to a real address or place name.
-  // Example: 'https://www.google.com/maps?q=123+Main+St,+Manila,+Philippines&output=embed'
-  mapsEmbedSrc: 'https://www.google.com/maps?q=Manila,Philippines&output=embed',
-  socials: { facebook: '#', youtube: '#' },
+  email: 'BBBC_Bacoor@gmail.com',
+  phone: '+63 904 287 504',
+  address: 'Niog, Bacoor, Cavite, Philippines',
+  mapsEmbedSrc:
+    'https://www.google.com/maps?q=14.4591752,120.9557499&hl=en&z=18&output=embed',
+  socials: {
+    facebook: 'https://www.facebook.com/BBBCNiogBacoor',
+    youtube: 'https://www.youtube.com/@believersbiblebaptistchurch',
+  },
 };
