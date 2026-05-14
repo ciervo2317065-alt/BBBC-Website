@@ -25,7 +25,8 @@ export const CHURCH = {
   tagline: 'From the Cross, through the Church, to the World.',
   email: 'BBBC_Bacoor@gmail.com',
   phone: '+63 304 287 504',
-  address: 'Niog, Bacoor, Cavite, Philippines',
+  address: '108 Monday Street, Saint Joseph Subdivision, Niog 1, Bacoor, Philippines',
+  coords: '14.4591752,120.9557499',
   mapsEmbedSrc:
     'https://www.google.com/maps?q=14.4591752,120.9557499&hl=en&z=18&output=embed',
   socials: {

@@ -32,7 +32,7 @@ export default function WorshipPage() {
               <MapPin size={18} className="text-gold-500 mt-1 shrink-0" /> {CHURCH.address}
             </p>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CHURCH.address)}`}
+              href={`https://www.google.com/maps/search/?api=1&query=${CHURCH.coords}`}
               target="_blank"
               rel="noreferrer"
               className="btn-primary mt-5"
