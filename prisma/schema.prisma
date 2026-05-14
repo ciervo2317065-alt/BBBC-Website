@@ -37,6 +37,7 @@ model Event {
   endsAt      DateTime?
   location    String?
   category    EventCategory @default(SERVICE)
+  imageUrl    String?
   ministryId  String?
   ministry    Ministry?     @relation(fields: [ministryId], references: [id], onDelete: SetNull)
   createdAt   DateTime      @default(now())

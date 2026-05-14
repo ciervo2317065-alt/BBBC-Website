@@ -17,6 +17,7 @@ export default async function EventsPage() {
     endsAt: e.endsAt ? e.endsAt.toISOString() : null,
     location: e.location,
     category: e.category,
+    imageUrl: e.imageUrl,
     ministry: e.ministry,
   }));
 

@@ -29,6 +29,7 @@ export const eventSchema = z.object({
   endsAt: z.coerce.date().nullable().optional(),
   location: optStr(200),
   category: z.enum(['SERVICE', 'SPECIAL', 'ANNOUNCEMENT', 'MEETING']),
+  imageUrl: optUrl,
   ministryId: z.string().nullable().optional().or(z.literal('')),
 });
 

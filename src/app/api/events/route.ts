@@ -26,6 +26,7 @@ export async function POST(req: Request) {
       endsAt: data.endsAt ?? null,
       location: data.location || null,
       category: data.category,
+      imageUrl: data.imageUrl || null,
       ministryId: data.ministryId || null,
     },
   });

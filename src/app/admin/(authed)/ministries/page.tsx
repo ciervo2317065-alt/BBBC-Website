@@ -12,7 +12,7 @@ export default async function AdminMinistriesPage() {
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'description', label: 'Description', type: 'textarea', rows: 3, required: true },
     { name: 'leader', label: 'Leader (optional)', type: 'text' },
-    { name: 'imageUrl', label: 'Image URL (optional)', type: 'url' },
+    { name: 'imageUrl', label: 'Image (optional)', type: 'image' },
   ];
 
   return (

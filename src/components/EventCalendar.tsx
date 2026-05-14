@@ -24,6 +24,7 @@ type DbEvent = {
   endsAt: string | null;
   location: string | null;
   category: 'SERVICE' | 'SPECIAL' | 'ANNOUNCEMENT' | 'MEETING';
+  imageUrl: string | null;
   ministry: { name: string } | null;
 };
 
@@ -35,6 +36,7 @@ type CalEvent = {
   endDate: Date | null;
   location: string | null;
   category: keyof typeof CATEGORY_COLOR;
+  imageUrl: string | null;
   ministry: string | null;
   recurring: boolean;
 };
@@ -54,6 +56,7 @@ function recurringForRange(start: Date, end: Date): CalEvent[] {
           endDate: null,
           location: null,
           category: 'SERVICE',
+          imageUrl: null,
           ministry: null,
           recurring: true,
         });
@@ -78,6 +81,7 @@ export default function EventCalendar({ events }: { events: DbEvent[] }) {
         endDate: e.endsAt ? new Date(e.endsAt) : null,
         location: e.location,
         category: e.category,
+        imageUrl: e.imageUrl,
         ministry: e.ministry?.name ?? null,
         recurring: false,
       })),
@@ -249,6 +253,14 @@ function EventDetail({ event, onClose }: { event: CalEvent; onClose: () => void 
         <button onClick={onClose} className="absolute top-3 right-3 p-1 rounded hover:bg-navy-50" aria-label="Close">
           <X size={18} />
         </button>
+        {event.imageUrl && (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={event.imageUrl}
+            alt={event.title}
+            className="w-full h-40 object-cover rounded-lg mb-4 -mt-2"
+          />
+        )}
         <div className="flex flex-wrap items-center gap-2 mb-2">
           <span className={`badge ${c.bg} ${c.text}`}>
             <span className={`inline-block w-1.5 h-1.5 rounded-full ${c.dot} mr-1`} />

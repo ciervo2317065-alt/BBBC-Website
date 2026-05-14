@@ -11,6 +11,7 @@ type Row = {
   endsAt: string | null;
   location: string | null;
   category: string;
+  imageUrl: string | null;
   ministryId: string | null;
 };
 
@@ -27,6 +28,7 @@ export default async function AdminEventsPage() {
     endsAt: e.endsAt ? e.endsAt.toISOString() : null,
     location: e.location,
     category: e.category,
+    imageUrl: e.imageUrl,
     ministryId: e.ministryId,
   }));
 
@@ -49,6 +51,7 @@ export default async function AdminEventsPage() {
       name: 'ministryId', label: 'Ministry (optional)', type: 'select',
       options: ministries.map((m) => ({ value: m.id, label: m.name })),
     },
+    { name: 'imageUrl', label: 'Image (optional)', type: 'image' },
   ];
 
   return (

@@ -20,6 +20,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       ...(d.endsAt !== undefined && { endsAt: d.endsAt ?? null }),
       ...(d.location !== undefined && { location: d.location || null }),
       ...(d.category !== undefined && { category: d.category }),
+      ...(d.imageUrl !== undefined && { imageUrl: d.imageUrl || null }),
       ...(d.ministryId !== undefined && { ministryId: d.ministryId || null }),
     },
   });

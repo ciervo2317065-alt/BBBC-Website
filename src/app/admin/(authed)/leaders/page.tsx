@@ -12,7 +12,7 @@ export default async function AdminLeadersPage() {
     { name: 'name', label: 'Name', type: 'text', required: true },
     { name: 'position', label: 'Position / Role', type: 'text', required: true },
     { name: 'bio', label: 'Short bio', type: 'textarea', rows: 3 },
-    { name: 'imageUrl', label: 'Photo URL (optional)', type: 'url' },
+    { name: 'imageUrl', label: 'Photo (optional)', type: 'image' },
     { name: 'order', label: 'Order (lower shows first)', type: 'number' },
   ];
 

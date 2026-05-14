@@ -4,13 +4,15 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Pencil, Trash2, Plus, X } from 'lucide-react';
 import ConfirmDialog from './ConfirmDialog';
+import ImageUpload from './ImageUpload';
 
 export type FieldDef =
   | { name: string; label: string; type: 'text' | 'email' | 'url' | 'number'; required?: boolean; placeholder?: string }
   | { name: string; label: string; type: 'textarea'; rows?: number; required?: boolean; placeholder?: string }
   | { name: string; label: string; type: 'select'; options: { value: string; label: string }[]; required?: boolean }
   | { name: string; label: string; type: 'datetime' | 'date'; required?: boolean }
-  | { name: string; label: string; type: 'checkbox' };
+  | { name: string; label: string; type: 'checkbox' }
+  | { name: string; label: string; type: 'image' };
 
 export type Column = {
   key: string;
@@ -219,6 +221,9 @@ export default function CrudClient<T extends { id: string }>({
                       <label className="inline-flex items-center gap-2 text-sm text-ink/80">
                         <input id={`f-${f.name}`} name={f.name} type="checkbox" defaultChecked={!!v} /> {f.label}
                       </label>
+                    )}
+                    {f.type === 'image' && (
+                      <ImageUpload key={editing?.id ?? 'new'} name={f.name} defaultValue={typeof v === 'string' ? v : ''} />
                     )}
                   </div>
                 );
