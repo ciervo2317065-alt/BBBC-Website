@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  role         Role     @default(EDITOR)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum EventCategory {
+  SERVICE
+  SPECIAL
+  ANNOUNCEMENT
+  MEETING
+}
+
+model Event {
+  id          String        @id @default(cuid())
+  title       String
+  description String?
+  startsAt    DateTime
+  endsAt      DateTime?
+  location    String?
+  category    EventCategory @default(SERVICE)
+  ministryId  String?
+  ministry    Ministry?     @relation(fields: [ministryId], references: [id], onDelete: SetNull)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([startsAt])
+}
+
+model Ministry {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  leader      String?
+  imageUrl    String?
+  events      Event[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Leader {
+  id        String   @id @default(cuid())
+  name      String
+  position  String
+  bio       String?
+  imageUrl  String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+enum PrayerStatus {
+  NEW
+  PRAYING
+  ANSWERED
+  ARCHIVED
+}
+
+model PrayerRequest {
+  id        String       @id @default(cuid())
+  name      String
+  contact   String?
+  category  String
+  message   String
+  isPrivate Boolean      @default(false)
+  status    PrayerStatus @default(NEW)
+  createdAt DateTime     @default(now())
+
+  @@index([createdAt])
+}
+
+model Song {
+  id        String   @id @default(cuid())
+  title     String
+  lyrics    String
+  author    String?
+  category  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Video {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  videoUrl    String
+  thumbnail   String?
+  date        DateTime?
+  ministry    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Announcement {
+  id        String    @id @default(cuid())
+  title     String
+  body      String
+  startsAt  DateTime  @default(now())
+  endsAt    DateTime?
+  pinned    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
