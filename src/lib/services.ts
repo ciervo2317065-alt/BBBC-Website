@@ -24,7 +24,7 @@ export const CHURCH = {
   shortName: 'BBBC',
   tagline: 'From the Cross, through the Church, to the World.',
   email: 'BBBC_Bacoor@gmail.com',
-  phone: '+63 904 287 504',
+  phone: '+63 304 287 504',
   address: 'Niog, Bacoor, Cavite, Philippines',
   mapsEmbedSrc:
     'https://www.google.com/maps?q=14.4591752,120.9557499&hl=en&z=18&output=embed',
