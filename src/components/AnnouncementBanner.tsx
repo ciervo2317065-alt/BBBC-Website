@@ -1,7 +1,9 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import AnnouncementBannerClient from './AnnouncementBannerClient';
 
 export default async function AnnouncementBanner() {
+  noStore();
   const now = new Date();
   const announcements = await prisma.announcement.findMany({
     where: {

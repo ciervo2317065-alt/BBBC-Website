@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { announcementSchema } from '@/lib/validators';
 import { requireAdmin } from '@/lib/adminGuard';
@@ -25,5 +26,6 @@ export async function POST(req: Request) {
       pinned: !!d.pinned,
     },
   });
+  revalidatePath('/', 'layout');
   return NextResponse.json(created, { status: 201 });
 }

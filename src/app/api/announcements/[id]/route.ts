@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { announcementSchema } from '@/lib/validators';
 import { requireAdmin } from '@/lib/adminGuard';
@@ -21,6 +22,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
       ...(d.pinned !== undefined && { pinned: !!d.pinned }),
     },
   });
+  revalidatePath('/', 'layout');
   return NextResponse.json(updated);
 }
 
@@ -29,5 +31,6 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ id: 
   if (!guard.ok) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   const { id } = await params;
   await prisma.announcement.delete({ where: { id } });
+  revalidatePath('/', 'layout');
   return NextResponse.json({ ok: true });
 }
