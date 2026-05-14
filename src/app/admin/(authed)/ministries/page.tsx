@@ -23,10 +23,9 @@ export default async function AdminMinistriesPage() {
       fields={fields}
       columns={[
         { key: 'name', label: 'Name' },
-        { key: 'leader', label: 'Leader', render: (r) => r.leader ?? '—' },
-        { key: 'description', label: 'Description', render: (r) => (r.description.length > 80 ? r.description.slice(0, 80) + '…' : r.description) },
+        { key: 'leader', label: 'Leader' },
+        { key: 'description', label: 'Description', format: 'truncate', truncate: 80 },
       ]}
-      toFormValues={(r) => ({ name: r.name, description: r.description, leader: r.leader ?? '', imageUrl: r.imageUrl ?? '' })}
     />
   );
 }

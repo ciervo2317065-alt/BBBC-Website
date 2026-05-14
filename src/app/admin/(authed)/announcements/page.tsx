@@ -29,14 +29,9 @@ export default async function AdminAnnouncementsPage() {
       fields={fields}
       columns={[
         { key: 'title', label: 'Title' },
-        { key: 'pinned', label: 'Pinned', render: (r) => (r.pinned ? 'Yes' : 'No') },
-        { key: 'startsAt', label: 'From', render: (r) => new Date(r.startsAt).toLocaleString() },
+        { key: 'pinned', label: 'Pinned', format: 'yesno' },
+        { key: 'startsAt', label: 'From', format: 'datetime' },
       ]}
-      toFormValues={(r) => ({
-        title: r.title, body: r.body,
-        startsAt: r.startsAt, endsAt: r.endsAt ?? '',
-        pinned: r.pinned,
-      })}
     />
   );
 }

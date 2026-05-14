@@ -27,7 +27,6 @@ export default async function AdminLeadersPage() {
         { key: 'name', label: 'Name' },
         { key: 'position', label: 'Position' },
       ]}
-      toFormValues={(r) => ({ name: r.name, position: r.position, bio: r.bio ?? '', imageUrl: r.imageUrl ?? '', order: r.order })}
     />
   );
 }

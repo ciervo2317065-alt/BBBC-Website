@@ -59,19 +59,10 @@ export default async function AdminEventsPage() {
       fields={fields}
       columns={[
         { key: 'title', label: 'Title' },
-        { key: 'startsAt', label: 'When', render: (r) => new Date(r.startsAt).toLocaleString() },
+        { key: 'startsAt', label: 'When', format: 'datetime' },
         { key: 'category', label: 'Category' },
-        { key: 'location', label: 'Location', render: (r) => r.location ?? '—' },
+        { key: 'location', label: 'Location' },
       ]}
-      toFormValues={(r) => ({
-        title: r.title,
-        description: r.description ?? '',
-        startsAt: r.startsAt,
-        endsAt: r.endsAt ?? '',
-        location: r.location ?? '',
-        category: r.category,
-        ministryId: r.ministryId ?? '',
-      })}
     />
   );
 }

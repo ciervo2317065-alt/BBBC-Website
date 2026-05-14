@@ -28,13 +28,9 @@ export default async function AdminVideosPage() {
       fields={fields}
       columns={[
         { key: 'title', label: 'Title' },
-        { key: 'ministry', label: 'Ministry', render: (r) => r.ministry ?? '—' },
-        { key: 'date', label: 'Date', render: (r) => (r.date ? new Date(r.date).toLocaleDateString() : '—') },
+        { key: 'ministry', label: 'Ministry' },
+        { key: 'date', label: 'Date', format: 'date' },
       ]}
-      toFormValues={(r) => ({
-        title: r.title, description: r.description ?? '', videoUrl: r.videoUrl,
-        thumbnail: r.thumbnail ?? '', date: r.date ?? '', ministry: r.ministry ?? '',
-      })}
     />
   );
 }

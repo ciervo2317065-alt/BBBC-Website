@@ -31,10 +31,9 @@ export default async function AdminSongsPage() {
       fields={fields}
       columns={[
         { key: 'title', label: 'Title' },
-        { key: 'author', label: 'Author', render: (r) => r.author ?? '—' },
+        { key: 'author', label: 'Author' },
         { key: 'category', label: 'Category' },
       ]}
-      toFormValues={(r) => ({ title: r.title, author: r.author ?? '', category: r.category, lyrics: r.lyrics })}
     />
   );
 }

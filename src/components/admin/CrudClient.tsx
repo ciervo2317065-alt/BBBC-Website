@@ -12,15 +12,19 @@ export type FieldDef =
   | { name: string; label: string; type: 'datetime' | 'date'; required?: boolean }
   | { name: string; label: string; type: 'checkbox' };
 
-type Column<T> = { key: keyof T | string; label: string; render?: (row: T) => React.ReactNode };
+export type Column = {
+  key: string;
+  label: string;
+  format?: 'text' | 'date' | 'datetime' | 'truncate' | 'yesno';
+  truncate?: number;
+};
 
 type Props<T extends { id: string }> = {
   title: string;
   endpoint: string;
   initialItems: T[];
-  columns: Column<T>[];
+  columns: Column[];
   fields: FieldDef[];
-  toFormValues?: (row: T) => Record<string, unknown>;
 };
 
 function fmtDtLocal(d: Date) {
@@ -32,13 +36,32 @@ function fmtDate(d: Date) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
+function renderCell(val: unknown, col: Column): string {
+  if (val == null || val === '') return '—';
+  switch (col.format) {
+    case 'date':
+      return new Date(String(val)).toLocaleDateString();
+    case 'datetime':
+      return new Date(String(val)).toLocaleString();
+    case 'truncate': {
+      const s = String(val);
+      const max = col.truncate ?? 80;
+      return s.length > max ? s.slice(0, max) + '…' : s;
+    }
+    case 'yesno':
+      return val ? 'Yes' : 'No';
+    case 'text':
+    default:
+      return String(val);
+  }
+}
+
 export default function CrudClient<T extends { id: string }>({
   title,
   endpoint,
   initialItems,
   columns,
   fields,
-  toFormValues,
 }: Props<T>) {
   const router = useRouter();
   const [items, setItems] = useState<T[]>(initialItems);
@@ -100,7 +123,7 @@ export default function CrudClient<T extends { id: string }>({
   }
 
   const dialogOpen = creating || !!editing;
-  const initialValues = editing && toFormValues ? toFormValues(editing) : (editing as unknown as Record<string, unknown>) ?? {};
+  const initialValues: Record<string, unknown> = (editing as unknown as Record<string, unknown>) ?? {};
 
   return (
     <div>
@@ -118,7 +141,7 @@ export default function CrudClient<T extends { id: string }>({
           <thead className="bg-navy-50 text-navy-900">
             <tr>
               {columns.map((c) => (
-                <th key={String(c.key)} className="text-left px-4 py-2.5 font-medium">{c.label}</th>
+                <th key={c.key} className="text-left px-4 py-2.5 font-medium">{c.label}</th>
               ))}
               <th className="px-4 py-2.5"></th>
             </tr>
@@ -130,8 +153,8 @@ export default function CrudClient<T extends { id: string }>({
             {items.map((row) => (
               <tr key={row.id} className="border-t border-navy-100">
                 {columns.map((c) => (
-                  <td key={String(c.key)} className="px-4 py-2.5 align-top">
-                    {c.render ? c.render(row) : String((row as Record<string, unknown>)[c.key as string] ?? '')}
+                  <td key={c.key} className="px-4 py-2.5 align-top">
+                    {renderCell((row as Record<string, unknown>)[c.key], c)}
                   </td>
                 ))}
                 <td className="px-4 py-2.5 text-right whitespace-nowrap">
@@ -174,7 +197,7 @@ export default function CrudClient<T extends { id: string }>({
                     )}
                     {(f.type === 'text' || f.type === 'email' || f.type === 'url' || f.type === 'number') && (
                       <input id={`f-${f.name}`} name={f.name} type={f.type}
-                        defaultValue={v as string | number | undefined ?? ''}
+                        defaultValue={v == null ? '' : (typeof v === 'number' ? v : String(v))}
                         required={f.required} placeholder={f.placeholder} className="input" />
                     )}
                     {f.type === 'datetime' && (
