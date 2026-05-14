@@ -26,7 +26,8 @@ export const CHURCH = {
   email: 'hello@bbbc.example',
   phone: '+000 000 0000',
   address: 'Church Address, City',
-  mapsEmbedSrc:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.123!2d121.0!3d14.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v0',
+  // To change the map location, edit the `q=` value to a real address or place name.
+  // Example: 'https://www.google.com/maps?q=123+Main+St,+Manila,+Philippines&output=embed'
+  mapsEmbedSrc: 'https://www.google.com/maps?q=Manila,Philippines&output=embed',
   socials: { facebook: '#', youtube: '#' },
 };
